@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary 📋
 
-Project **VIPER** (**V**ulnerable **I**P & **P**ayload **E**radication **R**esponse) is an automated, dual-layer incident response framework integrated directly with Wazuh SIEM. It bridges real-time threat intelligence feeds with endpoint containment mechanisms—blocking malicious network actors and purging infected files automatically without human intervention.
+Project VIPER is an automated, dual-layer incident response framework integrated directly with Wazuh SIEM. By leveraging real-time threat intelligence feeds from AbuseIPDB for IP reputation scoring and VirusTotal for hash-based malware analysis, it bridges network-level threat detection with endpoint containment mechanisms—automatically blocking malicious network actors and purging infected files without human intervention.
 
 ---
 
