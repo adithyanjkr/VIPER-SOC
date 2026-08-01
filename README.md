@@ -35,11 +35,15 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 * **Step 1 — Detection:** Agent captures an event (network connection or new file creation) and sends telemetry to the Wazuh Manager.
 * **Step 2 — Enrichment:** Wazuh Manager routes the IP or SHA256 hash through custom integration hooks to external APIs (AbuseIPDB / VirusTotal).
-* **Step 3 — Rule Evaluation:** Wazuh rules check if the returning score exceeds defined severity thresholds.
-* **Step 4 — Active Response:** Upon rule match, the manager instructs the local agent active-response engine to execute immediate containment (IP ban or file deletion).
+* **Step 3 — Rule Evaluation:** Wazuh rules check if the returning score exceeds defined severity thresholds:
+  * **Rule 100101:** Triggers when AbuseIPDB returns a confidence score $\ge$ 50%.
+  * **Rule 100200:** Triggers when VirusTotal detects a malicious file match ($>0$ detections).
+* **Step 4 — Active Response:** Upon rule match, the manager instructs the local agent active-response engine to execute immediate containment:
+  * **Network Containment:** Triggers `/var/ossec/active-response/bin/host-deny` to automatically append threat IPs to `/etc/hosts.deny`.
+  * **Payload Eradication:** Removes malicious payloads directly from the target endpoint.
 
 ![VIPER Dual-Layer Threat Detections](screenshots/08_dual_layer_threat_events.png)
-Figure 2: Unified Wazuh SIEM alerts for AbuseIPDB (Rule 100101) and VirusTotal (Rule 100200).
+*Figure 2: Unified Wazuh SIEM alerts for AbuseIPDB (Rule 100101) and VirusTotal (Rule 100200).*
 
 ---
 
