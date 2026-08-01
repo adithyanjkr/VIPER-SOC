@@ -1,0 +1,36 @@
+<!-- Local rules -->
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<group name="local,syslog,sshd,abuseipdb,threat_intel,virustotal,urlhaus,dns_web,">
+
+  <!-- Example SSH Rule -->
+  <rule id="100001" level="5">
+    <if_sid>5716</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>sshd: authentication failed from IP 1.1.1.1.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+
+  <!-- AbuseIPDB Base Integration Rule -->
+  <rule id="100100" level="3">
+    <field name="integration">custom-abuseipdb</field>
+    <description>AbuseIPDB lookup executed.</description>
+  </rule>
+
+  <!-- AbuseIPDB High Abuse Score Alert Rule -->
+  <rule id="100101" level="10">
+    <if_sid>100100</if_sid>
+    <field name="abuseipdb.abuseConfidenceScore" type="pcre2">^([5-9][0-9]|100)$</field>
+    <description>AbuseIPDB: High Abuse Confidence Score detected!</description>
+    <group>threat_intel,abuseipdb,</group>
+  </rule>
+
+  <!-- VirusTotal High Severity Alert Rule -->
+  <rule id="100200" level="12">
+    <if_sid>87105</if_sid>
+    <description>VirusTotal: Alert - File matches known malware signature!</description>
+    <group>virus,malware,threat_intel,virustotal,</group>
+  </rule>
+
+</group>
