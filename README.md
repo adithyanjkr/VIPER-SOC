@@ -1,4 +1,4 @@
-# VIPER-SOC : Threat Detection, Intelligence & Incident Response 🐍
+# VIPER-SOC : Threat Detection, Intelligence & Incident Response 
 
 **1. Executive Summary 📌**
 
