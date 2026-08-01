@@ -11,8 +11,8 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 * **Network Defense Setup:** Configured Wazuh Manager with a custom Python integration script (`integrator`) targeting the AbuseIPDB API. On the agent side, an Active Response executable triggers on Rule ID matches (Level 10) to automatically append the offending IP address to /etc/hosts.deny.
 * **Endpoint File Defense Setup:** Enabled Wazuh File Integrity Monitoring (syscheck) on target directories to calculate SHA256 hashes upon file creation or modification. Configured the VirusTotal integration module on the manager to query file hashes and execute a custom Active Response cleanup script (rm -f) on the agent upon a positive malware match (Level 12).
 
-![AbuseIPDB Network Containment](screenshots/05_network_active_response.png)
-*Figure 1: Automated IP block appended to /etc/hosts.deny upon high AbuseIPDB confidence detection.*
+![Wazuh Agent & Active Response Architecture](screenshots/01_agent_status.png)
+*Figure 1: Active Linux agent connected to Wazuh Manager with Active Response enabled.*
 
 ## 3. Core Capabilities & Defense Modules 🛡️
 
@@ -37,9 +37,6 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 * **Step 2 — Enrichment:** Wazuh Manager routes the IP or SHA256 hash through custom integration hooks to external APIs (AbuseIPDB / VirusTotal).
 * **Step 3 — Rule Evaluation:** Wazuh rules check if the returning score exceeds defined severity thresholds.
 * **Step 4 — Active Response:** Upon rule match, the manager instructs the local agent active-response engine to execute immediate containment (IP ban or file deletion).
-
-![VirusTotal Threat Detection & Eradication](screenshots/06_file_alert.png)
-*Figure 2: Wazuh SIEM triggering Level 12 alert enriched with VirusTotal threat intelligence.*
 
 ---
 
