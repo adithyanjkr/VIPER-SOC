@@ -1,0 +1,72 @@
+#!/var/ossec/framework/python/bin/python3
+import sys
+import json
+import ssl
+import socket
+import urllib.request
+import urllib.parse
+
+alert_file = sys.argv[1]
+api_key = sys.argv[2]
+hook_url = "https://api.abuseipdb.com/api/v2/check"
+log_file = "/var/ossec/logs/integrations.log"
+socket_addr = "/var/ossec/queue/sockets/queue"
+
+def log_msg(msg):
+    try:
+        with open(log_file, "a") as f:
+            f.write(msg + "\n")
+    except Exception:
+        pass
+
+def send_to_wazuh(msg):
+    try:
+        string_to_send = f"1:custom-abuseipdb:{msg}"
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+        sock.connect(socket_addr)
+        sock.send(string_to_send.encode())
+        sock.close()
+    except Exception as e:
+        log_msg(f"Socket Error: {str(e)}")
+
+try:
+    with open(alert_file) as f:
+        alert = json.load(f)
+
+    srcip = alert.get("data", {}).get("srcip") or alert.get("data", {}).get("src_ip")
+
+    if srcip:
+        params = urllib.parse.urlencode({"ipAddress": srcip, "maxAgeInDays": "90"})
+        full_url = f"{hook_url}?{params}"
+        
+        req = urllib.request.Request(full_url)
+        req.add_header("Accept", "application/json")
+        req.add_header("Key", api_key)
+        req.add_header("User-Agent", "Wazuh-Integration")
+
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+
+        with urllib.request.urlopen(req, context=ctx, timeout=10) as response:
+            if response.status == 200:
+                raw_res = json.loads(response.read().decode('utf-8'))
+                
+                # Unnest data object to prevent OpenSearch mapper_parsing_exception
+                abuse_data = raw_res.get("data", {})
+                
+                res_data = {
+                    "integration": "custom-abuseipdb",
+                    "srcip": srcip,                    
+                    "abuseipdb": abuse_data
+                }
+                
+                output_str = json.dumps(res_data)
+                
+                print(output_str)
+                log_msg(output_str)
+                send_to_wazuh(output_str)
+            else:
+                log_msg(f"HTTP Error: {response.status}")
+except Exception as e:
+    log_msg(f"Integration Exception: {str(e)}")
