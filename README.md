@@ -47,6 +47,14 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
+## 5. Future Roadmap 🔮
+
+* **URLhaus:** Add abuse.ch API hooks for real-time malicious URL verification.
+* **AlienVault OTX:** Integrate OTX pulse feeds for broader community IoC context.
+* **SOAR Integration:** Connect Wazuh webhooks with Shuffle SOAR for automated response workflows.
+
+---
+
 ## 5. Key Benefits 🌟
 
 * **Zero-Touch Containment:** Reduces Mean Time to Respond (MTTR) from minutes to milliseconds by removing manual analyst triage steps.
