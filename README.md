@@ -54,4 +54,4 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-**Author:** Adithyan V.
+**Author:** Adithyan V
