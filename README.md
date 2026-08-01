@@ -1,12 +1,18 @@
 # VIPER-SOC : Threat Detection, Intelligence & Incident Response
 
-## 1. Executive Summary 📌
+## 1. Executive Summary 📋
 
 Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, dual-layer incident response framework integrated directly with Wazuh SIEM. It bridges real-time threat intelligence feeds with endpoint containment mechanisms blocking malicious network actors and purging infected files automatically without human intervention.
 
 ---
 
-## 2. Core Capabilities & Defense Modules 🛡️
+## 2. Architecture Setup 📌
+
+* **Network Defense Setup:** Configured Wazuh Manager with a custom Python integration script (`integrator`) targeting the AbuseIPDB API. On the agent side, an Active Response executable triggers on Rule ID matches (Level 10) to automatically append the offending IP address to /etc/hosts.deny.
+* **Endpoint File Defense Setup:** Enabled Wazuh File Integrity Monitoring (syscheck) on target directories to calculate SHA256 hashes upon file creation or modification. Configured the VirusTotal integration module on the manager to query file hashes and execute a custom Active Response cleanup script (rm -f) on the agent upon a positive malware match (Level 12).
+
+
+## 3. Core Capabilities & Defense Modules 🛡️
 
 ### Module 1: Network Defense (AbuseIPDB Integration)
 * **Monitored Vector:** Inbound and outbound IP connections captured by system logs.
@@ -23,7 +29,7 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-## 3. Operational Workflow 🔄
+## 4. Operational Workflow 🔄
 
 * **Step 1 — Detection:** Agent captures an event (network connection or new file creation) and sends telemetry to the Wazuh Manager.
 * **Step 2 — Enrichment:** Wazuh Manager routes the IP or SHA256 hash through custom integration hooks to external APIs (AbuseIPDB / VirusTotal).
@@ -32,7 +38,7 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-## 4. Key Benefits 🌟
+## 5. Key Benefits 🌟
 
 * **Zero-Touch Containment:** Reduces Mean Time to Respond (MTTR) from minutes to milliseconds by removing manual analyst triage steps.
 * **Dual-Domain Coverage:** Secures both the network boundary (incoming/outgoing traffic) and the local host filesystem.
@@ -40,7 +46,7 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-## 5. Prerequisites & Technical Requirements 🛠️
+## 6. Prerequisites & Technical Requirements 🛠️
 
 * **SIEM Infrastructure:** Active Wazuh Manager and at least one connected Linux Wazuh Agent.
 * **API Access:** Valid API keys for both AbuseIPDB and VirusTotal.
