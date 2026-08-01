@@ -2,7 +2,7 @@
 
 **1. Executive Summary 📌**
 
-   Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, dual-layer incident response framework integrated directly with Wazuh SIEM. It       bridges real-time threat intelligence feeds with endpoint containment mechanisms—blocking malicious network actors and purging infected files automatically        without human intervention.
+   Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, dual-layer incident response framework integrated directly with Wazuh SIEM. It       bridges real-time threat intelligence feeds with endpoint containment mechanisms blocking malicious network actors and purging infected files automatically        without human intervention.
 
 **2. Core Capabilities & Defense Modules 🛡️**
 
