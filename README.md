@@ -38,6 +38,9 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 * **Step 3 — Rule Evaluation:** Wazuh rules check if the returning score exceeds defined severity thresholds.
 * **Step 4 — Active Response:** Upon rule match, the manager instructs the local agent active-response engine to execute immediate containment (IP ban or file deletion).
 
+![VIPER Dual-Layer Threat Detections](screenshots/08_dual_layer_threat_events.png)
+Figure 2: Unified Wazuh SIEM alerts for AbuseIPDB (Rule 100101) and VirusTotal (Rule 100200).
+
 ---
 
 ## 5. Key Benefits 🌟
