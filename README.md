@@ -55,7 +55,7 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-## 5. Key Benefits 🌟
+## 6. Key Benefits 🌟
 
 * **Zero-Touch Containment:** Reduces Mean Time to Respond (MTTR) from minutes to milliseconds by removing manual analyst triage steps.
 * **Dual-Domain Coverage:** Secures both the network boundary (incoming/outgoing traffic) and the local host filesystem.
@@ -63,7 +63,7 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-## 6. Prerequisites & Technical Requirements 🛠️
+## 7. Prerequisites & Technical Requirements 🛠️
 
 * **SIEM Infrastructure:** Active Wazuh Manager and at least one connected Linux Wazuh Agent.
 * **API Access:** Valid API keys for both AbuseIPDB and VirusTotal.
