@@ -63,7 +63,7 @@ Project VIPER (Vulnerable IP & Payload Eradication Response) is an automated, du
 
 ---
 
-## 7. Prerequisites & Technical Requirements 🛠️
+## 7. Technical Requirements 🛠️
 
 * **SIEM Infrastructure:** Active Wazuh Manager and at least one connected Linux Wazuh Agent.
 * **API Access:** Valid API keys for both AbuseIPDB and VirusTotal.
